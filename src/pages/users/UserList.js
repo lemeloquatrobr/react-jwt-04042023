@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
 import * as userService from "../../services/UserService";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 export default function UserList() {
     const [users, setUsers] = useState([]);
-    const [userError, setUserError] = useState('')
+    const [userError, setUserError] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         reloadUsers();
@@ -20,8 +22,17 @@ export default function UserList() {
         }
     }
 
+    const onAdd = () => {
+        navigate("/user-form");
+    }
+
     return (
         <>
+            <div className="card">
+                <div className="card-body">
+                    <button className="btn btn-outline-primary" onClick={onAdd}>Add</button>
+                </div>
+            </div>
             <div className="card">
                 <div className="card-body">
                     <div className="row">
