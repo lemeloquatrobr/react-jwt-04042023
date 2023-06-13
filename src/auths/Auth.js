@@ -36,7 +36,7 @@ export default function Auth() {
     } else if (swichToken === 2) {
         return <Pages />
     } else if (swichToken === 3) {
-        return <Signin />
+        return <Signin statusError={statusError} />
     } else if (swichToken === 4) {
         return <LoadError />
     }
