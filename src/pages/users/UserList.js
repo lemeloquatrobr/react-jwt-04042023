@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import * as userService from "../../services/UserService";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import "../pages.css";
 
 export default function UserList() {
     const [users, setUsers] = useState([]);
@@ -26,6 +27,10 @@ export default function UserList() {
         navigate("/user-form");
     }
 
+    const toShow = (id) => {
+        navigate("/user-show", {replace: false, state: id});
+    }
+
     return (
         <>
             <div className="card">
@@ -41,7 +46,7 @@ export default function UserList() {
                                 ? (<div><h2>Something is wrong, notify your System Administrator</h2></div>)
                                 : users.map(u => (
                                     <div className="col-md-3 p-2" key={u.id}>
-                                        <div className="card">
+                                        <div className="card onHoverColor pointer" onDoubleClick={() => toShow(u.id)}>
                                             <div className="card-header"></div>
                                             <div className="card-body">
                                                 <div className="row">
