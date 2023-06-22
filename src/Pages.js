@@ -6,6 +6,7 @@ import Navbar from "./config/navbar/Navbar";
 import Home from "./pages/Home";
 import UserForm from "./pages/users/UserForm";
 import CredentialForm from "./pages/credentials/CredentialForm";
+import UserShow from "./pages/users/UserShow";
 
 export default function Pages() {
     return (
@@ -15,6 +16,7 @@ export default function Pages() {
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/user-list" element={<UserList />} />
                 <Route exact path="/user-form" element={<UserForm />} />
+                <Route exact path="/user-show" element={<UserShow />} />
                 <Route exact path="/credential-form" element={<CredentialForm />} />
             </Routes>
         </BrowserRouter>
