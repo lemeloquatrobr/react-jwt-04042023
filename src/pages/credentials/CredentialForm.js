@@ -4,7 +4,6 @@ import * as credentialService from "../../services/CredentialService";
 
 export default function CredentialForm() {
     const userId = useLocation().state;
-    console.log("User Id: " + userId);
     const navigate = useNavigate();
     const [emailInvalid, setEmailInvalid] = useState("");
     const [email, setEmail] = useState("");
@@ -12,6 +11,7 @@ export default function CredentialForm() {
     const [passwordInvalid, setPasswordInvalid] = useState("");
     const [password, setPassword] = useState("");
     const [seeThePassword, setSeeThePassword] = useState(false);
+    const [response, setResponse] = useState("");
 
     useEffect(() => {emailFocus.current.focus();}, []);
 
@@ -40,8 +40,12 @@ export default function CredentialForm() {
             setPasswordInvalid("Insert a valida password")
         } else {
             try {
-                await credentialService.postCredential({email, password});
-                navigate(-1);
+                const response = await credentialService.postCredential({userId, email, password});
+                if (response) {
+                    setResponse(response);
+                } else {
+                    navigate(-1);
+                }
             } catch (error) {
                 console.error(error);
             }
@@ -63,6 +67,9 @@ export default function CredentialForm() {
                     <button className="btn btn-outline-primary border pl-5" onClick={onBack}>&nbsp;&nbsp;Back&nbsp;&nbsp;</button>
                 </div>
                 <div className="col-md-4 p-2">
+                    <div className="row text-danger">
+                        <p>{response ? response : ""}</p>
+                    </div>
                     <div className="card">
                         <div className="card-header text-center">
                             <h4 className="card-text">Add Credential</h4>
