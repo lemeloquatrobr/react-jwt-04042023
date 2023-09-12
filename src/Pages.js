@@ -9,6 +9,7 @@ import CredentialForm from "./pages/credentials/CredentialForm";
 import UserShow from "./pages/users/UserShow";
 import ClinicList from "./pages/clinics/ClinicList";
 import ClinicForm from "./pages/clinics/ClinicForm";
+import ExpertiseList from "./pages/expertises/ExpertiseList";
 
 export default function Pages() {
     return (
@@ -22,6 +23,7 @@ export default function Pages() {
                 <Route exact path="/credential-form" element={<CredentialForm />} />
                 <Route exact path="/clinic-list" element={<ClinicList />} />
                 <Route exact path="/clinic-form" element={<ClinicForm />} />
+                <Route exact path="/expertise-list" element={<ExpertiseList />} />
             </Routes>
         </BrowserRouter>
     )
