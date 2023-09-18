@@ -1,37 +1,28 @@
 import React, {useState, useRef, useEffect} from "react";
-import * as clinicService from "../../services/ClinicService";
+import * as expertiseService from "../../services/ExpertiseService";
 import { useNavigate } from "react-router-dom";
 
 export default function ExpertiseForm() {
-    const [cnpj, setCnpj] = useState("");
-    const [cnpjInvalid, setCnpjInvalid] = useState("");
-    const [corporateName, setCorporateName] = useState("");
-    const [corporateNameInvalid, setCorporateNameInvalid] = useState("");
-    const cnpjFocus = useRef(null);
+    const [expertise, setExpertise] = useState("");
+    const [expertiseInvalid, setExpertiseInvalid] = useState("");
+    const expertiseFocus = useRef(null);
     const navigate = useNavigate();
 
-    useEffect(() => {cnpjFocus.current.focus();}, []);
+    useEffect(() => {expertiseFocus.current.focus();}, []);
 
-    const onChangeCnpj = (event) => {
-        setCnpjInvalid("");
-        setCnpj(event.target.value)
-    }
-
-    const onChangeCorporateName = (event) => {
-        setCorporateNameInvalid("")
-        setCorporateName(event.target.value);
+    const onChangeExpertise = (event) => {
+        setExpertiseInvalid("");
+        setExpertise(event.target.value)
     }
 
     const toSave = async (event) => {
         event.preventDefault();
 
-        if (!cnpj.match(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/)) {
-            setCnpjInvalid("Insert a valid CNPJ");
-        } else if (!corporateName) {
-            setCorporateNameInvalid("Insert a CorporateName")
+        if (!expertise) {
+            setExpertiseInvalid("Insert a expertise");
         } else {
             try {
-                const response = await clinicService.store({cnpj, corporateName});
+                const response = await expertiseService.store({expertise});
                 if (response && response.sqlExecute) {
                     navigate(-1);
                 } else {
@@ -62,34 +53,21 @@ export default function ExpertiseForm() {
                 <div className="col-md-4 p-2">
                     <div className="card">
                         <div className="card-header text-center">
-                            <h4 className="card-text">Add Clinic</h4>
+                            <h4 className="card-text">Add Expertise</h4>
                         </div>
                         <div className="card-body">
                             <form>
                                 <div className="form-group">
-                                    <label htmlFor="cnpj" className="form-control-label">
-                                        { cnpjInvalid ? <span className="text-danger">{ cnpjInvalid }</span> : "CNPJ" }
+                                    <label htmlFor="expertise" className="form-control-label">
+                                        { expertiseInvalid ? <span className="text-danger">{ expertiseInvalid }</span> : "Expertise" }
                                     </label>
                                     <input
                                         type="text"
-                                        id="cnpj"
+                                        id="expertise"
                                         className="form-control"
-                                        value={cnpj}
-                                        onChange={onChangeCnpj}
-                                        ref={cnpjFocus}
-                                        onKeyDown={handleKeyDown}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="corporateName" className="form-control-label">
-                                        { corporateNameInvalid ? <span className="text-danger">{ corporateNameInvalid }</span> : "Corporate Name" }
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="corporateName"
-                                        className="form-control"
-                                        value={corporateName}
-                                        onChange={onChangeCorporateName}
+                                        value={expertise}
+                                        onChange={onChangeExpertise}
+                                        ref={expertiseFocus}
                                         onKeyDown={handleKeyDown}
                                     />
                                 </div>
