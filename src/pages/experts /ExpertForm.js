@@ -1,28 +1,28 @@
 import React, {useState, useRef, useEffect} from "react";
-import * as expertiseService from "../../services/ExpertiseService";
+import * as expertService from "../../services/ExpertService";
 import { useNavigate } from "react-router-dom";
 
-export default function ExpertiseForm() {
-    const [expertise, setExpertise] = useState("");
-    const [expertiseInvalid, setExpertiseInvalid] = useState("");
-    const expertiseFocus = useRef(null);
+export default function ExpertForm() {
+    const [expert, setExpert] = useState("");
+    const [expertInvalid, setExpertInvalid] = useState("");
+    const expertFocus = useRef(null);
     const navigate = useNavigate();
 
-    useEffect(() => {expertiseFocus.current.focus();}, []);
+    useEffect(() => {expertFocus.current.focus();}, []);
 
-    const onChangeExpertise = (event) => {
-        setExpertiseInvalid("");
-        setExpertise(event.target.value)
+    const onChangeExpert = (event) => {
+        setExpertInvalid("");
+        setExpert(event.target.value)
     }
 
     const toSave = async (event) => {
         event.preventDefault();
 
-        if (!expertise) {
-            setExpertiseInvalid("Insert a expertise");
+        if (!expert) {
+            setExpertInvalid("Insert a expert");
         } else {
             try {
-                const response = await expertiseService.store({expertise});
+                const response = await expertService.store({expert});
                 if (response && response.sqlExecute) {
                     navigate(-1);
                 } else {
@@ -53,21 +53,21 @@ export default function ExpertiseForm() {
                 <div className="col-md-4 p-2">
                     <div className="card">
                         <div className="card-header text-center">
-                            <h4 className="card-text">Add Expertise</h4>
+                            <h4 className="card-text">Add Expert</h4>
                         </div>
                         <div className="card-body">
                             <form>
                                 <div className="form-group">
-                                    <label htmlFor="expertise" className="form-control-label">
-                                        { expertiseInvalid ? <span className="text-danger">{ expertiseInvalid }</span> : "Expertise" }
+                                    <label htmlFor="expert" className="form-control-label">
+                                        { expertInvalid ? <span className="text-danger">{ expertInvalid }</span> : "Expert" }
                                     </label>
                                     <input
                                         type="text"
-                                        id="expertise"
+                                        id="expert"
                                         className="form-control"
-                                        value={expertise}
-                                        onChange={onChangeExpertise}
-                                        ref={expertiseFocus}
+                                        value={expert}
+                                        onChange={onChangeExpert}
+                                        ref={expertFocus}
                                         onKeyDown={handleKeyDown}
                                     />
                                 </div>
